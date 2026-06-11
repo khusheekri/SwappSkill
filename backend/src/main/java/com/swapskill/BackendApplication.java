@@ -1,4 +1,4 @@
-package com.swapskill.backend;
+package com.swapskill;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
