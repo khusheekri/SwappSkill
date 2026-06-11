@@ -1,0 +1,33 @@
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, RouterLink, NgIf],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent {
+  fb = inject(FormBuilder);
+  auth = inject(AuthService);
+  loading = false;
+  errorMsg = '';
+
+  form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]]
+  });
+
+  submit(): void {
+    if (this.form.invalid) return;
+    this.loading = true;
+    this.errorMsg = '';
+    this.auth.login(this.form.value as any).subscribe({
+      error: (err) => { this.errorMsg = err.error?.message || 'Login failed'; this.loading = false; }
+    });
+  }
+}

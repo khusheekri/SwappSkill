@@ -1,0 +1,42 @@
+<div class="auth-page">
+  <div class="auth-left">
+    <div class="auth-brand">
+      <div class="brand-icon">S</div>
+      <span>SkillSwap <strong>AI</strong></span>
+    </div>
+    <h1 class="auth-headline">Exchange skills.<br>Grow together.</h1>
+    <p class="auth-sub">Teach what you know. Learn what you need. Powered by AI.</p>
+    <div class="auth-stats">
+      <div class="stat"><span class="stat-num">2,400+</span><span class="stat-label">Active Learners</span></div>
+      <div class="stat"><span class="stat-num">180+</span><span class="stat-label">Skills Available</span></div>
+      <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Match Success</span></div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p class="auth-card-sub">Sign in to your account</p>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="you@example.com" />
+          <span class="error-msg" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Enter a valid email</span>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="••••••••" />
+          <span class="error-msg" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">Min 6 characters</span>
+        </div>
+        <span class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</span>
+        <button type="submit" class="btn-primary w-full" [disabled]="loading">
+          {{ loading ? 'Signing in…' : 'Sign In' }}
+        </button>
+      </form>
+
+
+      <p class="auth-switch">Don't have an account? <a routerLink="/register">Register</a></p>
+    </div>
+  </div>
+</div>
