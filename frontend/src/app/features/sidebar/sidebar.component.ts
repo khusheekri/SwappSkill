@@ -1,28 +1,66 @@
-import { Component, inject } from '@angular/core';
-import { NgFor } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+
+interface UserDTO {
+  name: string;
+  email: string;
+  role: string;
+}
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, AsyncPipe, NgIf, NgFor],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent {
-  auth = inject(AuthService);
-  user$ = this.auth.currentUser$;
+export class SidebarComponent implements OnInit {
 
-  navItems = [
-    { label: 'Dashboard', icon: '⊞', route: '/dashboard' },
-    { label: 'My Skills', icon: '✦', route: '/skills' },
-    { label: 'Find Matches', icon: '◎', route: '/matching' },
-    { label: 'AI Roadmap', icon: '◈', route: '/roadmap' },
-    { label: 'Chat', icon: '◻', route: '/chat' },
-    { label: 'Sessions', icon: '▷', route: '/session' }
-  ];
+  userDTO: UserDTO | null = null;
+  isDark = false;
+  showProfileModal = false;
 
-  logout(): void { this.auth.logout(); }
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    // TODO: replace with real API call to fetch logged-in user
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      this.userDTO = JSON.parse(stored);
+    } else {
+      this.userDTO = {
+        name: 'Khushee',
+        email: 'khushee@example.com',
+        role: 'Student'
+      };
+    }
+
+    const theme = localStorage.getItem('theme');
+    this.isDark = theme === 'dark';
+    this.applyTheme();
+  }
+
+  toggleTheme(): void {
+    this.isDark = !this.isDark;
+    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    document.body.classList.toggle('dark-theme', this.isDark);
+  }
+
+  openProfile(): void {
+    this.showProfileModal = true;
+  }
+
+  closeProfile(): void {
+    this.showProfileModal = false;
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
 }

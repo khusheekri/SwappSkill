@@ -7,11 +7,14 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
+    
     
       
 
@@ -24,7 +27,8 @@ import { SidebarComponent } from './features/sidebar/sidebar.component';
     HttpClientModule,
     LoginComponent,
     SidebarComponent,
-    
+    RouterModule,
+    DashboardComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

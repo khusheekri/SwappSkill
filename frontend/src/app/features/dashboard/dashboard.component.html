@@ -1,0 +1,199 @@
+<div class="dashboard">
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon offer-icon">
+        <i class="fa fa-graduation-cap"></i>
+        <div class="stat-icon-glow"></div>
+      </div>
+      <div class="stat-info">
+        <span class="stat-num">{{ stats.offered }}</span>
+        <span class="stat-label">Skills Offered</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon want-icon">
+        <i class="fa fa-star"></i>
+        <div class="stat-icon-glow"></div>
+      </div>
+      <div class="stat-info">
+        <span class="stat-num">{{ stats.wanted }}</span>
+        <span class="stat-label">Skills Wanted</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon match-icon">
+        <i class="fa fa-users"></i>
+        <div class="stat-icon-glow"></div>
+      </div>
+      <div class="stat-info">
+        <span class="stat-num">{{ stats.matches }}</span>
+        <span class="stat-label">Matches</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon session-icon">
+        <i class="fa fa-calendar"></i>
+        <div class="stat-icon-glow"></div>
+      </div>
+      <div class="stat-info">
+        <span class="stat-num">{{ stats.sessions }}</span>
+        <span class="stat-label">Sessions</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Matches -->
+  <div class="panel">
+    <div class="panel-header">
+      <h3>🤝 Recent Matches</h3>
+      <button class="panel-link" routerLink="/matches">View All</button>
+    </div>
+
+    <div class="matches-list" *ngIf="recentMatches.length; else noMatches">
+      <div class="match-card" *ngFor="let match of recentMatches">
+        <div class="match-avatar">{{ match.name.charAt(0) | uppercase }}</div>
+        <div class="match-info">
+          <span class="match-name">{{ match.name }}</span>
+          <span class="match-skill">Teaches: {{ match.teaches }} • Wants: {{ match.wants }}</span>
+        </div>
+        <span class="match-badge" [class.pending]="match.status === 'pending'">{{ match.status }}</span>
+      </div>
+    </div>
+
+    <ng-template #noMatches>
+      <p class="empty-state-text">No matches yet.</p>
+    </ng-template>
+  </div>
+
+  <!-- Requests + Quick Actions -->
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-header">
+        <h3>📩 Your Requests</h3>
+      </div>
+      <div class="requests-row">
+        <div class="request-stat pending">
+          <span class="req-num">{{ requests.pending }}</span>
+          <span class="req-label">Pending</span>
+        </div>
+        <div class="request-stat accepted">
+          <span class="req-num">{{ requests.accepted }}</span>
+          <span class="req-label">Accepted</span>
+        </div>
+        <div class="request-stat rejected">
+          <span class="req-num">{{ requests.rejected }}</span>
+          <span class="req-label">Rejected</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <h3>🚀 Quick Actions</h3>
+      </div>
+      <div class="quick-actions">
+        <button routerLink="/skills" class="qa-btn">
+          <span><i class="fa fa-plus"></i></span>
+          Add Skill
+        </button>
+        <button routerLink="/matches" class="qa-btn">
+          <span><i class="fa fa-search"></i></span>
+          Auto-Find Matches
+        </button>
+        <button routerLink="/sessions" class="qa-btn">
+          <span><i class="fa fa-calendar"></i></span>
+          Schedule Session
+        </button>
+        <button routerLink="/messages" class="qa-btn">
+          <span><i class="fa fa-comments"></i></span>
+          Messages
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- How Collaborative Education Works -->
+  <div class="panel how-it-works-panel">
+    <div class="hiw-header">
+      <h2>How Collaborative Education Works</h2>
+      <p>A true educational exchange. Give a little, learn a lot.</p>
+    </div>
+
+    <div class="hiw-steps">
+      <div class="hiw-card">
+        <div class="hiw-icon">🔍</div>
+        <h4>1. Find a Peer Tutor</h4>
+        <p>Discover classmates who excel in exactly what you want to study.</p>
+      </div>
+
+      <div class="hiw-arrow"><i class="fa fa-arrow-right"></i></div>
+
+      <div class="hiw-card">
+        <div class="hiw-icon">🤝</div>
+        <h4>2. Propose a Swap</h4>
+        <p>Offer your own academic expertise in exchange for their instruction.</p>
+      </div>
+
+      <div class="hiw-arrow"><i class="fa fa-arrow-right"></i></div>
+
+      <div class="hiw-card">
+        <div class="hiw-icon">🎥</div>
+        <h4>3. Live Learning Session</h4>
+        <p>Jump into a secure video call and start your collaborative study block.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <div class="footer-top">
+
+    <div class="footer-brand">
+      <div class="footer-logo">SwapSkill<span class="ai-badge">AI</span></div>
+      <p>A peer-to-peer skill exchange platform. Learn what you want by teaching what you know.</p>
+
+     
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a routerLink="/dashboard">Home</a></li>
+        <li><a routerLink="/dashboard">About</a></li>
+        <li><a routerLink="/dashboard">How It Works</a></li>
+        <li><a routerLink="/login">Login</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Platform</h4>
+      <ul>
+        <li><a routerLink="/dashboard">Dashboard</a></li>
+        <li><a routerLink="/skills">My Skills</a></li>
+        <li><a routerLink="/matches">Matches</a></li>
+        <li><a routerLink="/messages">Chat</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-feedback">
+      <h4>Give us your feedback</h4>
+      <p>Give us your valuable feedback.</p>
+      <form class="feedback-form" (ngSubmit)="sendFeedback()">
+        <input type="email" placeholder="Your email" [(ngModel)]="feedbackEmail" name="feedbackEmail" required>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 <strong>SwapSkillAI</strong>. All Rights Reserved.</p>
+  </div>
+</footer>

@@ -25,7 +25,7 @@ export class LoginComponent {
 
   submit(): void {
     if (this.form.invalid) return;
-    this.router.navigate(['/sidebar']);
+    this.router.navigate(['/dashboard']);
 
     this.loading = true;
     this.errorMsg = '';
