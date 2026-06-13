@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { SidebarComponent } from './features/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
+    
       
 
   ],
@@ -21,6 +23,7 @@ import { RegisterComponent } from './features/auth/register/register.component';
     FormsModule,
     HttpClientModule,
     LoginComponent,
+    SidebarComponent,
     
   ],
   providers: [],

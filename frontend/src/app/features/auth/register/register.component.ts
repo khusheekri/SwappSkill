@@ -107,15 +107,10 @@ export class RegisterComponent {
       .register(payload)
       .subscribe({
 
-        next: (response: any) => {
-
-          this.loading = false;
-
-          alert(response.message);
-
+        next:(response: any) => {this.loading = false;
+          alert(response);
           // navigate to login
             this.router.navigate(['/login']);
-
         },
 
         error: (err:any) => {

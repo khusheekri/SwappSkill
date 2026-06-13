@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 
@@ -14,6 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class LoginComponent {
   fb = inject(FormBuilder);
   auth = inject(AuthService);
+  router = inject(Router);
   loading = false;
   errorMsg = '';
 
@@ -24,6 +25,8 @@ export class LoginComponent {
 
   submit(): void {
     if (this.form.invalid) return;
+    this.router.navigate(['/sidebar']);
+
     this.loading = true;
     this.errorMsg = '';
     this.auth.login(this.form.value as any).subscribe({
