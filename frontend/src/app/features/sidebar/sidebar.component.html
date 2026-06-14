@@ -12,7 +12,7 @@
         <span class="nav-icon"><i class="fa fa-home"></i></span>
         <span>Dashboard</span>
       </a>
-      <a routerLink="/skills" routerLinkActive="active">
+      <a routerLink="/mySkills" routerLinkActive="active">
         <span class="nav-icon"><i class="fa fa-star"></i></span>
         <span>My Skills</span>
       </a>
@@ -43,7 +43,7 @@
         <div class="user-avatar" (click)="openProfile()">{{ userDTO?.name?.charAt(0) | uppercase }}</div>
         <div class="user-info">
           <span class="user-name">{{ userDTO?.name }}</span>
-          <span class="user-role">{{ userDTO?.role }}</span>
+         
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@
     <h2>My Profile</h2>
     <p><b>Name: </b>{{userDTO?.name}}</p>
     <p><b>Email: </b>{{userDTO?.email}}</p>
-    <p><b>Role: </b>{{userDTO?.role}}</p>
+  
     <button class="btn btn-danger" routerLink="/login">Logout</button>
   </div>
 </div>

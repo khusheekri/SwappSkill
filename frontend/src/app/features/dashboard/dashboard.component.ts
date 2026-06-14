@@ -20,6 +20,8 @@ interface Match {
 })
 export class DashboardComponent implements OnInit {
 
+  userId = Number(localStorage.getItem('userId'));
+
   stats = {
     offered: 0,
     wanted: 0,
@@ -44,25 +46,50 @@ export class DashboardComponent implements OnInit {
   }
 
   loadDashboardData(): void {
-    // TODO: replace with real API calls e.g. http://localhost:8765/dashboard
-    this.http.get<any>('http://localhost:8765/dashboard').subscribe({
-      next: (data) => {
-        this.stats = data.stats;
-        this.recentMatches = data.recentMatches;
-        this.requests = data.requests;
+
+    this.http.get<any[]>(
+      `http://localhost:8764/api/skills/${this.userId}?type=OFFERED`
+    ).subscribe({
+      next: (offered) => {
+        this.stats.offered = offered.length;
       },
-      error: (err) => console.error('Failed to load dashboard data', err)
+      error: (err) => {
+        console.error('Failed to load offered skills', err);
+      }
     });
+
+    this.http.get<any[]>(
+      `http://localhost:8764/api/skills/${this.userId}?type=WANTED`
+    ).subscribe({
+      next: (wanted) => {
+        this.stats.wanted = wanted.length;
+      },
+      error: (err) => {
+        console.error('Failed to load wanted skills', err);
+      }
+    });
+
   }
 
   sendFeedback(): void {
-    if (!this.feedbackEmail) return;
-    this.http.post('http://localhost:8765/feedback', { email: this.feedbackEmail }).subscribe({
+
+    if (!this.feedbackEmail) {
+      return;
+    }
+
+    this.http.post(
+      'http://localhost:8764/feedback',
+      { email: this.feedbackEmail }
+    ).subscribe({
       next: () => {
         console.log('Feedback submitted');
         this.feedbackEmail = '';
       },
-      error: (err) => console.error('Failed to submit feedback', err)
+      error: (err) => {
+        console.error('Failed to submit feedback', err);
+      }
     });
+
   }
+
 }

@@ -4,6 +4,8 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { MySkillsComponent } from './features/my-skills/my-skills.component';
+
 
 
 
@@ -15,7 +17,8 @@ const routes: Routes = [
     component: SidebarComponent,
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: 'dashboard', component: DashboardComponent },
+       { path: 'mySkills', component: MySkillsComponent }
     ]
   },
   { path: '**', redirectTo: 'dashboard' }

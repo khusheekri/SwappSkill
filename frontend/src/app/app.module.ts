@@ -9,11 +9,15 @@ import { RegisterComponent } from './features/auth/register/register.component';
 import { SidebarComponent } from './features/sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { MySkillsComponent } from './features/my-skills/my-skills.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
+    
+    
     
     
       
@@ -29,6 +33,7 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     RouterModule,
     DashboardComponent,
+    MySkillsComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

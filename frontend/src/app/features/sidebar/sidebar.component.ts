@@ -25,20 +25,13 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     // TODO: replace with real API call to fetch logged-in user
-    const stored = localStorage.getItem('user');
-    if (stored) {
-      this.userDTO = JSON.parse(stored);
-    } else {
-      this.userDTO = {
-        name: 'Khushee',
-        email: 'khushee@example.com',
-        role: 'Student'
-      };
-    }
+  const storedUser = localStorage.getItem('user');
 
-    const theme = localStorage.getItem('theme');
-    this.isDark = theme === 'dark';
-    this.applyTheme();
+  if (storedUser) {
+    this.userDTO = JSON.parse(storedUser);
+  }
+
+
   }
 
   toggleTheme(): void {

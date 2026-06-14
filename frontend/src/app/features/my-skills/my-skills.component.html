@@ -1,0 +1,164 @@
+<div class="skills-page">
+
+  <!-- Header -->
+  <div class="skills-header">
+    <div>
+      <h2>My Skills</h2>
+      <p class="skills-subtitle">Manage what you can teach and what you'd love to learn</p>
+    </div>
+    <button class="btn-primary" (click)="openAddSkillForm()">
+      <i class="fa fa-plus"></i> New Skill
+    </button>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="skills-stats">
+    <div class="stat-pill offer">
+      <span class="stat-pill-icon">📚</span>
+      <div>
+        <span class="stat-pill-num">{{ offeredSkills.length }}</span>
+        <span class="stat-pill-label">Teaching</span>
+      </div>
+    </div>
+    <div class="stat-pill want">
+      <span class="stat-pill-icon">🎯</span>
+      <div>
+        <span class="stat-pill-num">{{ wantedSkills.length }}</span>
+        <span class="stat-pill-label">Learning</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills Grid -->
+  <div class="skills-grid">
+
+    <!-- Offered -->
+    <div class="panel skill-column">
+      <div class="skill-col-header offer-header">
+        <div class="skill-col-title">
+          <span class="skill-icon-circle offer-circle"><i class="fa fa-graduation-cap"></i></span>
+          <div>
+            <h4>Skills I Offer</h4>
+            <span class="skill-col-sub">Things you can teach others</span>
+          </div>
+        </div>
+        <span class="skill-count offer-count">{{ offeredSkills.length }}</span>
+      </div>
+
+      <div class="skill-cards">
+        <div class="skill-card" *ngFor="let skill of offeredSkills">
+          <div class="skill-card-top">
+            <span class="skill-card-name">{{ skill.name }}</span>
+            <button class="tag-remove" (click)="removeSkill(skill, 'OFFERED')">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+          <div class="level-row">
+            <span class="level-label">{{ skill.level }}</span>
+            <div class="level-dots">
+              <span class="dot" *ngFor="let d of [0,1,2,3]" [class.filled]="d < getLevelValue(skill.level)"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!offeredSkills.length">
+          <span class="empty-emoji">📭</span>
+          <p>No skills added yet.</p>
+          <button class="btn-link" (click)="openAddSkillForm()">Add your first skill</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wanted -->
+    <div class="panel skill-column">
+      <div class="skill-col-header want-header">
+        <div class="skill-col-title">
+          <span class="skill-icon-circle want-circle"><i class="fa fa-star"></i></span>
+          <div>
+            <h4>Skills I Want</h4>
+            <span class="skill-col-sub">Things you'd like to learn</span>
+          </div>
+        </div>
+        <span class="skill-count want-count">{{ wantedSkills.length }}</span>
+      </div>
+
+      <div class="skill-cards">
+        <div class="skill-card" *ngFor="let skill of wantedSkills">
+          <div class="skill-card-top">
+            <span class="skill-card-name">{{ skill.name }}</span>
+            <button class="tag-remove" (click)="removeSkill(skill, 'WANTED')">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+          <div class="level-row">
+            <span class="level-label">{{ skill.level }}</span>
+            <div class="level-dots">
+              <span class="dot" *ngFor="let d of [0,1,2,3]" [class.filled]="d < getLevelValue(skill.level)"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" *ngIf="!wantedSkills.length">
+          <span class="empty-emoji">🌱</span>
+          <p>No skills added yet.</p>
+          <button class="btn-link" (click)="openAddSkillForm()">Add something to learn</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add Skill Modal -->
+  <div class="modal-overlay" *ngIf="showAddForm" (click)="closeAddSkillForm()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h3>Add a Skill</h3>
+        <button class="close-btn" (click)="closeAddSkillForm()"><i class="fa fa-times"></i></button>
+      </div>
+
+      <form [formGroup]="skillForm" (ngSubmit)="submitSkill()">
+
+        <label>Skill Name</label>
+        <input type="text" formControlName="name" placeholder="e.g. Guitar, Python, Photography" autocomplete="off">
+
+        <label>Proficiency Level</label>
+        <div class="level-options">
+          <button
+            type="button"
+            class="level-btn"
+            *ngFor="let lvl of levels"
+            [class.active]="skillForm.value.level === lvl"
+            (click)="setLevel(lvl)">
+            {{ lvl }}
+          </button>
+        </div>
+
+        <label>Skill Type</label>
+        <div class="type-toggle">
+          <button
+            type="button"
+            class="toggle-btn offer-toggle"
+            [class.active]="skillForm.value.type === 'OFFERED'"
+            (click)="setType('OFFERED')">
+            <i class="fa fa-graduation-cap"></i>
+            <span>I Offer This</span>
+          </button>
+          <button
+            type="button"
+            class="toggle-btn want-toggle"
+            [class.active]="skillForm.value.type === 'WANTED'"
+            (click)="setType('WANTED')">
+            <i class="fa fa-star"></i>
+            <span>I Want This</span>
+          </button>
+        </div>
+
+        <button type="submit" class="btn-primary submit-btn" [disabled]="skillForm.invalid">
+          <i class="fa fa-check"></i> Add Skill
+        </button>
+      </form>
+    </div>
+  </div>
+
+</div>

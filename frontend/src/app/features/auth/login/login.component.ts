@@ -12,9 +12,11 @@ import { AuthService } from '../../../core/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
   fb = inject(FormBuilder);
   auth = inject(AuthService);
   router = inject(Router);
+
   loading = false;
   errorMsg = '';
 
@@ -24,13 +26,38 @@ export class LoginComponent {
   });
 
   submit(): void {
-    if (this.form.invalid) return;
-    this.router.navigate(['/dashboard']);
+
+    if (this.form.invalid) {
+      return;
+    }
 
     this.loading = true;
     this.errorMsg = '';
+
     this.auth.login(this.form.value as any).subscribe({
-      error: (err) => { this.errorMsg = err.error?.message || 'Login failed'; this.loading = false; }
+
+      next: (user: any) => {
+
+        // Save logged-in user details
+        localStorage.setItem('user', JSON.stringify(user));
+
+        // Save user id separately
+        localStorage.setItem('userId', user.id.toString());
+
+        this.loading = false;
+
+        // Navigate after successful login
+        this.router.navigate(['/dashboard']);
+      },
+
+      error: (err) => {
+
+        this.errorMsg =
+          err.error?.message || 'Invalid email or password';
+
+        this.loading = false;
+      }
+
     });
   }
 }
