@@ -1,0 +1,99 @@
+<div class="matches-page">
+
+  <!-- Header -->
+  <div class="matches-header">
+    <div>
+      <h2>Matches</h2>
+      <p class="matches-subtitle">Find people to swap skills with</p>
+    </div>
+    <button class="btn-primary" (click)="findMatches()" [disabled]="loadingSuggestions">
+      <i class="fa fa-search"></i>
+      {{ loadingSuggestions ? 'Finding...' : 'Auto-Find Matches' }}
+    </button>
+  </div>
+
+  <!-- Suggestions -->
+  <div class="panel" *ngIf="suggestions.length">
+    <div class="panel-header">
+      <h3>✨ Suggested Matches</h3>
+    </div>
+
+    <div class="match-cards">
+      <div class="match-card suggestion" *ngFor="let s of suggestions">
+        <div class="match-avatar">{{ s.matchedUserName.charAt(0) | uppercase }}</div>
+
+        <div class="match-info">
+          <span class="match-name">{{ s.matchedUserName }}</span>
+          <span class="match-email">{{ s.matchedUserEmail }}</span>
+
+          <div class="swap-row">
+            <div class="swap-side">
+              <span class="swap-label">They teach</span>
+              <span class="swap-skill they-teach">{{ s.matchedUserOfferedSkillName }}</span>
+            </div>
+            <i class="fa fa-exchange swap-icon"></i>
+            <div class="swap-side">
+              <span class="swap-label">You teach</span>
+              <span class="swap-skill you-teach">{{ s.userOfferedSkillName }}</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary small" (click)="sendMatchRequest(s)">
+          <i class="fa fa-paper-plane"></i> Request Swap
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Matches -->
+  <div class="panel">
+    <div class="panel-header">
+      <h3>🤝 My Matches</h3>
+    </div>
+
+    <div class="match-cards" *ngIf="myMatches.length; else noMatches">
+      <div class="match-card" *ngFor="let m of myMatches">
+        <div class="match-avatar">{{ m.matchedUserName.charAt(0) | uppercase }}</div>
+
+        <div class="match-info">
+          <span class="match-name">{{ m.matchedUserName }}</span>
+          <span class="match-email">{{ m.matchedUserEmail }}</span>
+
+          <div class="swap-row">
+            <div class="swap-side">
+              <span class="swap-label">They teach</span>
+              <span class="swap-skill they-teach">{{ m.matchedUserOfferedSkillName }}</span>
+            </div>
+            <i class="fa fa-exchange swap-icon"></i>
+            <div class="swap-side">
+              <span class="swap-label">You teach</span>
+              <span class="swap-skill you-teach">{{ m.userOfferedSkillName }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="match-actions">
+          <span class="match-badge" [ngClass]="m.status.toLowerCase()">{{ m.status }}</span>
+
+          <div class="action-buttons" *ngIf="m.status === 'PENDING'">
+            <button class="btn-icon accept" (click)="respondToMatch(m, 'ACCEPTED')" title="Accept">
+              <i class="fa fa-check"></i>
+            </button>
+            <button class="btn-icon reject" (click)="respondToMatch(m, 'REJECTED')" title="Reject">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noMatches>
+      <div class="empty-state">
+        <span class="empty-emoji">🤷</span>
+        <p>No matches yet. Try Auto-Find Matches above.</p>
+      </div>
+    </ng-template>
+  </div>
+
+</div>

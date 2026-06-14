@@ -10,18 +10,13 @@ import { SidebarComponent } from './features/sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { MySkillsComponent } from './features/my-skills/my-skills.component';
+import { MatchesComponent } from './features/matches/matches.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
-    
-    
-    
-    
-      
-
+    RegisterComponent,  
   ],
   imports: [
     BrowserModule,
@@ -34,6 +29,7 @@ import { MySkillsComponent } from './features/my-skills/my-skills.component';
     RouterModule,
     DashboardComponent,
     MySkillsComponent,
+    MatchesComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
